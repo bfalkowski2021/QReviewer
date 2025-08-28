@@ -1,0 +1,26 @@
+{
+  "modules_analyzed": [
+    "appian-libraries"
+  ],
+  "total_modules": 1,
+  "summary": {
+    "total_prs": 0,
+    "total_reviews": 0,
+    "total_comments": 0
+  },
+  "combined_standards": {},
+  "combined_issues": [],
+  "module_results": {
+    "appian-libraries": {
+      "module": "appian-libraries",
+      "total_prs": 0,
+      "total_reviews": 0,
+      "total_comments": 0,
+      "file_patterns": {},
+      "module_patterns": {},
+      "team_preferences": {},
+      "common_issues": [],
+      "learned_standards": {}
+    }
+  }
+}

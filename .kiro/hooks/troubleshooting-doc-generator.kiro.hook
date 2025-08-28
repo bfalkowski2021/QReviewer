@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "name": "Troubleshooting Doc Generator",
+  "description": "Monitors key project files and automatically generates or updates a troubleshooting document at the root level when changes occur",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "QReviewer/README.md",
+      "QReviewer/GETTING_STARTED.md",
+      "QReviewer/requirements.txt",
+      "QReviewer/pyproject.toml",
+      "QReviewer/docker-compose.yml",
+      "QReviewer/Dockerfile",
+      "QReviewer/config.env.example",
+      "QReviewer/qrev/config.py",
+      "QReviewer/qrev/cli.py"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Create or update a comprehensive TROUBLESHOOTING.md document at the root level. The document should include common issues, solutions, and debugging steps for the QReviewer project. Cover topics like: installation problems, configuration issues, Docker setup problems, API connectivity issues, CLI command failures, dependency conflicts, and environment setup. Include specific error messages and their solutions where possible. Make it practical and actionable for developers encountering issues."
+  }
+}

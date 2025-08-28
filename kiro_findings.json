@@ -1,0 +1,80 @@
+{
+  "pr": {
+    "url": "https://github.com/bfalkowski2021/ae/pull/2",
+    "number": 2,
+    "repo": "bfalkowski2021/ae",
+    "title": "Composer sdx tests rdm"
+  },
+  "findings": [
+    {
+      "file": "appian-libraries/generative-ai/requirements-capture/src/main/java/com/appiancorp/requirementscapture/RequirementsCaptureSpringConfig.java",
+      "hunk_header": "@@ -287,7 +288,6 @@ public FunctionSupplier requirementsCaptureFunctionSupplier(",
+      "severity": "info",
+      "category": "architecture",
+      "message": "Excellent refactoring: Split GenerateRecommendedDataModelFn into two focused functions (RequestInitial and RequestUpdate). This follows the Single Responsibility Principle and improves maintainability.",
+      "confidence": 0.9,
+      "suggested_patch": null,
+      "line_hint": 330
+    },
+    {
+      "file": "appian-libraries/generative-ai/requirements-capture/src/main/java/com/appiancorp/requirementscapture/RequirementsCaptureSpringConfig.java",
+      "hunk_header": "@@ -519,6 +511,26 @@ public RetrieveRecommendedDataModelFn getDataModelFn(",
+      "severity": "minor",
+      "category": "spring",
+      "message": "New bean definitions follow Spring best practices with proper dependency injection. Good implementation of the factory pattern.",
+      "confidence": 0.8,
+      "suggested_patch": null,
+      "line_hint": 515
+    },
+    {
+      "file": "appian-libraries/generative-ai/requirements-capture/src/main/java/com/appiancorp/requirementscapture/datamodel/RecommendedDataModelService.java",
+      "hunk_header": "@@ -53,54 +47,22 @@ public class RecommendedDataModelService {",
+      "severity": "major",
+      "category": "design",
+      "message": "Excellent simplification: Removed complex conditional logic from service layer. The service now has cleaner separation of concerns with dedicated methods for initial and update operations.",
+      "confidence": 0.9,
+      "suggested_patch": null,
+      "line_hint": 47
+    },
+    {
+      "file": "appian-libraries/generative-ai/requirements-capture/src/main/java/com/appiancorp/requirementscapture/datamodel/RequestInitialRecommendedDataModelFn.java",
+      "hunk_header": "@@ -0,0 +1,66 @@",
+      "severity": "minor",
+      "category": "error_handling",
+      "message": "Good error handling pattern with proper null value initialization. Consider extracting this pattern to a base class to reduce duplication.",
+      "confidence": 0.7,
+      "suggested_patch": null,
+      "line_hint": 44
+    },
+    {
+      "file": "appian-libraries/generative-ai/requirements-capture/src/main/java/com/appiancorp/requirementscapture/datamodel/RequestUpdateRecommendedDataModelFn.java",
+      "hunk_header": "@@ -0,0 +1,64 @@",
+      "severity": "minor",
+      "category": "maintainability",
+      "message": "Similar error handling pattern detected. Consider creating a base class or utility method to avoid code duplication between RequestInitial and RequestUpdate functions.",
+      "confidence": 0.6,
+      "suggested_patch": null,
+      "line_hint": 41
+    },
+    {
+      "file": "appian-libraries/generative-ai/requirements-capture/src/main/java/com/appiancorp/requirementscapture/datamodel/RecommendedDataModelService.java",
+      "hunk_header": "@@ -142,7 +104,7 @@ private Value<String> createEntitiesForPlan(",
+      "severity": "info",
+      "category": "encapsulation",
+      "message": "Methods changed from private to public (createEntitiesForPlan, updateEntitiesForPlan). Ensure this visibility change is intentional for the new architecture.",
+      "confidence": 0.8,
+      "suggested_patch": null,
+      "line_hint": 84
+    },
+    {
+      "file": "appian-libraries/generative-ai/requirements-capture/src/test/integration/sail-test/RequirementsCaptureSailTest/recommendedDataModelHappyPath.xml",
+      "hunk_header": "@@ -0,0 +1,81 @@",
+      "severity": "info",
+      "category": "testing",
+      "message": "Excellent addition of integration test for the happy path scenario. This demonstrates good test-driven development practices.",
+      "confidence": 0.9,
+      "suggested_patch": null,
+      "line_hint": 1
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+# QReviewer Makefile
+# Simple commands to run QReviewer workflows
+
+.PHONY: help review post-review test clean
+
+# Default target
+help:
+	@echo "🚀 QReviewer Commands"
+	@echo "===================="
+	@echo ""
+	@echo "Usage:"
+	@echo "  make review PR=<PR_URL>           - Analyze PR (no posting)"
+	@echo "  make post-review PR=<PR_URL>      - Analyze and post to GitHub"
+	@echo "  make test                         - Test with sample PR"
+	@echo "  make clean                        - Clean generated files"
+	@echo ""
+	@echo "Examples:"
+	@echo "  make review PR=https://github.com/owner/repo/pull/123"
+	@echo "  make post-review PR=https://github.com/owner/repo/pull/123"
+	@echo ""
+	@echo "Environment:"
+	@echo "  GITHUB_TOKEN must be set for GitHub operations"
+
+# Analyze PR without posting
+review:
+	@if [ -z "$(PR)" ]; then \
+		echo "❌ Error: PR parameter required"; \
+		echo "Usage: make review PR=<PR_URL>"; \
+		exit 1; \
+	fi
+	@echo "🔍 Analyzing PR: $(PR)"
+	python qreview.py "$(PR)"
+
+# Analyze and post review to GitHub
+post-review:
+	@if [ -z "$(PR)" ]; then \
+		echo "❌ Error: PR parameter required"; \
+		echo "Usage: make post-review PR=<PR_URL>"; \
+		exit 1; \
+	fi
+	@echo "📤 Analyzing and posting PR: $(PR)"
+	python qreview.py "$(PR)" --post
+
+# Test with the sample PR we've been using
+test:
+	@echo "🧪 Testing QReviewer with sample PR"
+	python qreview.py "https://github.com/bfalkowski2021/ae/pull/2"
+
+# Test and post
+test-post:
+	@echo "🧪 Testing QReviewer with sample PR (posting to GitHub)"
+	python qreview.py "https://github.com/bfalkowski2021/ae/pull/2" --post
+
+# Clean generated files
+clean:
+	@echo "🧹 Cleaning generated files"
+	rm -f pr_raw_data.json findings.json ae-pr2-*.json *.log
+
+# Check environment
+check-env:
+	@echo "🔧 Checking environment"
+	@if [ -z "$$GITHUB_TOKEN" ]; then \
+		echo "❌ GITHUB_TOKEN not set"; \
+		exit 1; \
+	else \
+		echo "✅ GITHUB_TOKEN is set"; \
+	fi
+	@python --version
+	@echo "✅ Environment ready"
+
+# Install dependencies (if needed)
+install:
+	@echo "📦 Installing dependencies"
+	pip install -r requirements.txt
+
+# Show status of generated files
+status:
+	@echo "📊 QReviewer Status"
+	@echo "=================="
+	@if [ -f "pr_raw_data.json" ]; then \
+		echo "✅ pr_raw_data.json ($(shell wc -l < pr_raw_data.json) lines)"; \
+	else \
+		echo "❌ pr_raw_data.json (not found)"; \
+	fi
+	@if [ -f "findings.json" ]; then \
+		echo "✅ findings.json ($(shell jq '.findings | length' findings.json 2>/dev/null || echo "?") findings)"; \
+	else \
+		echo "❌ findings.json (not found)"; \
+	fi
